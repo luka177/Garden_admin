@@ -1,0 +1,7 @@
+This is garrden administaration system (at least i will use it as that). For now you can create new table (File-->New) it will ask for size of table, maxsimum 
+is  5000x5000. Then you can see table in maind window, if you put your pointer on some cell in table it will be highlited with red. When you click that cell 
+you will see new small window there you can choose image from list for now you will see "pyimagenumber" later will fix, you will see that image in window, you 
+can enter "Name" in that window (just some text), you will see that name in main window when youre pointer is on cell. You can Save (File-->Save as) then you 
+will see file dialog where you will choose file location and name. Of course you can load with (File-->load). You can change sizes of cells with 
+(File-->Set cell size) you will be promted for new size in new dialog.
+For now thats all.
