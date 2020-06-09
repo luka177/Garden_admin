@@ -8,9 +8,9 @@ from tkinter import filedialog
 import shutil
 import zipfile
 inmaindir=True
-xcell=50
+xcell=25
 donerec=0
-ycell=50
+ycell=25
 x = 0
 created=0
 y = 0
@@ -119,9 +119,9 @@ def new():
     e1.grid(row=0, column=1)
     e2.grid(row=1, column=1)
 def file_save():
-    canvas.postscript(file='filename.ps', colormode='color')
+    canvas.postscript(file='/home/luka/father/test.ps', colormode='color')
 main =Tk()
-canvas = tk.Canvas(main, width=1800, height=900)
+canvas = tk.Canvas(main, width=1000, height=700)
 canvas.grid(row=0, column=0)
 v = StringVar()
 v.set("hi")
@@ -142,11 +142,15 @@ def draw_grid():
     global images
     global x
     global y
+    global scroll_x
+    global scroll_y
     i=0
+    canvas.create_line(0, 0, x*xcell, 0)
     while(i<x):
         i+=1
         canvas.create_line(i*xcell, 0, i*xcell, y*ycell)
     i=0
+    canvas.create_line(0, 0, 0, y*ycell)
     while(i<y):
         i+=1
         canvas.create_line(0, i*ycell, x*xcell, i*ycell)
@@ -155,8 +159,9 @@ def draw_grid():
     xx=0
     yy=0
     ylin=0
+    canvas.configure(scrollregion=canvas.bbox("all"))
     while (i<x*y):
-        mass2[xy][ylin]=canvas.create_image(xx, yy, image=images[mmas[xy][ylin]], anchor=NW)
+        mass2[xy][ylin]=canvas.create_image(xx+1, yy+1, image=images[mmas[xy][ylin]], anchor=NW)
         i+=1
         xx+=xcell
         xy+=1
@@ -172,6 +177,10 @@ def localsave():
     mass1fi=open("mass1",'wb')
     np.save(mass1fi, mass1)
     mass1fi.close()
+    wi=open("w",'w+')
+    wi.write(str(xcell))
+    he=open("h",'w+')
+    he.write(str(ycell))
     savename=filedialog.asksaveasfilename(defaultextension=".sad", filetypes=(("sad file", "*.sad"),("All Files", "*.*") ))
     print(savename)
     os.chdir("..")
@@ -205,8 +214,12 @@ def load():
     mass1fi.close()
     xfile= open("x","r")
     yfile=open("y","r")
+  #  w= open("w","r")
+  #  h=open("h","r")
     x=int(xfile.read())
     y=int(yfile.read())
+  #  xcell=int(w.read())
+  #  ycell=int(h.read())
     xfile.close()
     yfile.close()
     print(x,y)
